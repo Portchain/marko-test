@@ -12,7 +12,7 @@ class {
       vessel.isDynamic = true
     })
     this.state.vessels = this.state.vessels.concat([{
-      imo: 1,
+      imo: 3,
       name: 'dynamic vessel',
       isDynamic: true
     }])
@@ -21,7 +21,7 @@ class {
 <div>
   <button on-click('addVessel')>Add vessel</button>
   <for(vessel in state.vessels)>
-    <div>${vessel.imo} - ${vessel.name} ? ${vessel.isDynamic}</div>
+    <div>${vessel.imo} ${vessel.name} ? ${vessel.isDynamic}</div>
   </for>
 
 </div>

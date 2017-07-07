@@ -12,18 +12,15 @@ if (process.env.NODE_ENV !== 'production') {
   // Enable hot reloading in development
   require('marko/hot-reload').enable();
 
-  let files = walkSync(templatesDir).filter((filename) => {
-    return /\.marko$/.test(filename)
-  })
+  //let allMarkoFiles = walkSync(templatesDir).filter((filename) => {
+  //  return /\.marko$/.test(filename)
+  //})
   watch(templatesDir, { recursive: true }, function(event, filename) {
     if (/\.marko$/.test(filename)) {
-      // Resolve the filename to a full template path:
-
-      // Pass along the *full* template path to marko
-      files.forEach(filename => {
-        require('marko/hot-reload').handleFileModified(filename)
-        require('lasso').handleWatchedFileChanged(filename)
-      })
+      //allMarkoFiles.forEach(filename => {
+      require('marko/hot-reload').handleFileModified(path.join(templatesDir, filename))
+      require('lasso').handleWatchedFileChanged(path.join(templatesDir, filename))
+      //})
     }
   });
 }
