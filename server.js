@@ -1,37 +1,30 @@
 const path = require('path')
 const watch = require('node-watch');
 
+require('marko/express')
+const app = require('express')()
+const compression = require('compression')
+ 
+
 require('marko/node-require').install({
   compilerOptions: {
     writeToDisk: false
   }
 })
 
-var templatesDir = path.join(__dirname, 'routes');
-if (process.env.NODE_ENV !== 'production') {
-  // Enable hot reloading in development
-  require('marko/hot-reload').enable();
+const isProduction = process.env.NODE_ENV !== 'production'
 
-  //let allMarkoFiles = walkSync(templatesDir).filter((filename) => {
-  //  return /\.marko$/.test(filename)
-  //})
+if (isProduction) {
+  let templatesDir = path.join(__dirname, 'routes');
+  require('marko/hot-reload').enable()
   watch(templatesDir, { recursive: true }, function(event, filename) {
     if (/\.marko$/.test(filename)) {
-      //allMarkoFiles.forEach(filename => {
       require('marko/hot-reload').handleFileModified(path.join(templatesDir, filename))
       require('lasso').handleWatchedFileChanged(path.join(templatesDir, filename))
-      //})
     }
-  });
+  })
 }
-require('marko/browser-refresh').enable();
-require('marko/hot-reload').enable();
-require('marko/express')
-const app = require('express')()
-const compression = require('compression')
- 
 // Load a Marko view by requiring a .marko file:
-var isProduction = false
 
 require('lasso').configure({
     plugins: [
@@ -49,17 +42,3 @@ app.get('/', require('./routes/index'));
 app.listen(3000, (err) => {
   if(err) console.error(err)
 })
-
-function walkSync(dir, filelist) {
-  var fs = fs || require('fs')
-  var files = fs.readdirSync(dir)
-  filelist = filelist || []
-  files.forEach(function(file) {
-    if (fs.statSync(path.join(dir,file)).isDirectory()) {
-      filelist = walkSync(path.join(dir, file), filelist)
-    } else {
-      filelist.push(path.join(dir, file))
-    }
-  })
-  return filelist
-}
