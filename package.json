@@ -4,12 +4,15 @@
   "description": "",
   "main": "client.js",
   "dependencies": {
+    "browser-refresh": "1.7.2",
+    "compression": "1.6.2",
     "express": "4.15.3",
     "lasso": "^2.11.12",
     "lasso-cli": "2.0.8",
     "lasso-marko": "2.3.0",
     "marko": "4.4.18",
-    "marko-devtools": "^1.0.10"
+    "marko-devtools": "^1.0.10",
+    "node-watch": "0.5.5"
   },
   "devDependencies": {},
   "scripts": {
