@@ -1,0 +1,15 @@
+class {
+  onCreate() {
+    this.state = {
+      count:0,
+        interval: 1
+    };
+  }
+  increment() {
+    console.log(this.state)
+    this.state.count+=this.state.interval;
+  }
+}
+
+<div>The current count is ${state.count}</div>
+<button on-click('increment')>Click me!</button>

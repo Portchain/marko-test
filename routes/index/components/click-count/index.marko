@@ -1,0 +1,21 @@
+class {
+  onCreate(input) {
+    utils.setState(input)
+  }
+  addVessel() {
+    this.state.vessels.forEach(vessel => {
+      vessel.isDynamic = true
+    })
+    this.state.vessels = this.state.vessels.concat([{
+      imo: 1234,
+      name: 'dynamic vessel',
+      isDynamic: true
+    }])
+  }
+}
+<div>
+  <button on-click('addVessel')>Add vessel</button>
+  <for(vessel in state.vessels)>
+    <div>${vessel.imo} ${vessel.name} ${vessel.isDynamic}</div>
+  </for>
+</div>

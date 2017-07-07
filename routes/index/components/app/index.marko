@@ -1,0 +1,21 @@
+class {
+  onCreate(input) {
+    this.state = {
+      mounted: false,
+      vessels: []
+    };
+    if(input && input.vessels) {
+      this.state.vessels = input.vessels
+    }
+  }
+  onMount() {
+    this.state.mounted = true;
+  }
+}
+<div>
+  <p if(state.mounted)>
+    UI component successfully mounted!
+  </p>
+
+  <click-count vessels=state.vessels/>
+</div>
